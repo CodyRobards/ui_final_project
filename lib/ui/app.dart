@@ -256,7 +256,7 @@ class _PlannerFlutterAppState extends State<PlannerFlutterApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Planner',
+      title: 'fantastic_planner',
       theme: PlannerTheme.themed(seedColor: widget.seedColor),
       routes: {
         '/': (context) => PlannerHomePage(controller: _controller),
