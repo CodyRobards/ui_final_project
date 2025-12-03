@@ -24,7 +24,8 @@ class _PlannerHomePageState extends State<PlannerHomePage> {
   String? _selectedId;
 
   PlannerTokens get _tokens =>
-      Theme.of(context).extension<PlannerTokens>() ?? PlannerTokens.fromSeed(seedColor: PlannerTheme.defaultSeed);
+      Theme.of(context).extension<PlannerTokens>() ??
+      PlannerTokens.fromSeed(seedColor: PlannerTheme.defaultSeed);
 
   void _syncSelection(List<PlannerItem> items, bool enableDetail) {
     if (!enableDetail && _selectedId != null) {
@@ -64,6 +65,7 @@ class _PlannerHomePageState extends State<PlannerHomePage> {
       SnackBar(content: Text('Moved "${item.title}" to ${status.name}')),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +89,8 @@ class _PlannerHomePageState extends State<PlannerHomePage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Error: ${widget.controller.error}', textAlign: TextAlign.center),
+                  Text('Error: ${widget.controller.error}',
+                      textAlign: TextAlign.center),
                   const SizedBox(height: 12),
                   ElevatedButton.icon(
                     onPressed: widget.controller.refresh,
@@ -106,7 +109,11 @@ class _PlannerHomePageState extends State<PlannerHomePage> {
               final isTablet = constraints.maxWidth >= 720;
               final columns = isWide ? 3 : (isTablet ? 2 : 1);
               final padding = EdgeInsets.symmetric(
-                horizontal: isWide ? 36 : isTablet ? 24 : 14,
+                horizontal: isWide
+                    ? 36
+                    : isTablet
+                        ? 24
+                        : 14,
                 vertical: 12,
               );
 
@@ -156,8 +163,12 @@ class _PlannerHomePageState extends State<PlannerHomePage> {
                     child: _PlannerDetailPanel(
                       item: selected,
                       tokens: _tokens,
-                      onEdit: selected == null ? null : () => _openForm(context, existing: selected),
-                      onDelete: selected == null ? null : () => _confirmDelete(context, selected),
+                      onEdit: selected == null
+                          ? null
+                          : () => _openForm(context, existing: selected),
+                      onDelete: selected == null
+                          ? null
+                          : () => _confirmDelete(context, selected),
                     ),
                   ),
                 ],
@@ -223,7 +234,8 @@ class _PlannerHomePageState extends State<PlannerHomePage> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.error),
+            style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.error),
             child: const Text('Delete'),
           ),
         ],
@@ -271,7 +283,8 @@ class _PlannerListArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<PlannerTokens>() ?? PlannerTokens.fromSeed(seedColor: PlannerTheme.defaultSeed);
+    final tokens = Theme.of(context).extension<PlannerTokens>() ??
+        PlannerTokens.fromSeed(seedColor: PlannerTheme.defaultSeed);
     final bool useGrid = columns > 1;
     final spacing = tokens.gutter;
     final sliverItems = useGrid
@@ -302,7 +315,8 @@ class _PlannerListArea extends StatelessWidget {
               (context, index) {
                 final item = items[index];
                 return Padding(
-                  padding: EdgeInsets.only(bottom: index == items.length - 1 ? 0 : spacing),
+                  padding: EdgeInsets.only(
+                      bottom: index == items.length - 1 ? 0 : spacing),
                   child: _PlannerListTile(
                     item: item,
                     tokens: tokens,
@@ -323,7 +337,8 @@ class _PlannerListArea extends StatelessWidget {
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
           SliverPadding(
-            padding: EdgeInsets.fromLTRB(padding.left, padding.top, padding.right, 8),
+            padding: EdgeInsets.fromLTRB(
+                padding.left, padding.top, padding.right, 8),
             sliver: SliverToBoxAdapter(
               child: _PageHeader(
                 view: view,
@@ -333,19 +348,22 @@ class _PlannerListArea extends StatelessWidget {
             ),
           ),
           SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: padding.left, vertical: 4),
+            padding:
+                EdgeInsets.symmetric(horizontal: padding.left, vertical: 4),
             sliver: SliverToBoxAdapter(
               child: _FilterSummary(controller: controller),
             ),
           ),
           SliverPadding(
-            padding: EdgeInsets.fromLTRB(padding.left, 8, padding.right, padding.bottom + 72),
+            padding: EdgeInsets.fromLTRB(
+                padding.left, 8, padding.right, padding.bottom + 72),
             sliver: items.isEmpty
                 ? const SliverToBoxAdapter(
                     child: Padding(
                       padding: EdgeInsets.symmetric(vertical: 48),
                       child: Center(
-                        child: Text('No planner items yet. Add one to get started!'),
+                        child: Text(
+                            'No planner items yet. Add one to get started!'),
                       ),
                     ),
                   )
@@ -358,7 +376,10 @@ class _PlannerListArea extends StatelessWidget {
 }
 
 class _PageHeader extends StatelessWidget {
-  const _PageHeader({required this.view, required this.onToggle, required this.onOpenFilters});
+  const _PageHeader(
+      {required this.view,
+      required this.onToggle,
+      required this.onOpenFilters});
 
   final PlannerView view;
   final ValueChanged<PlannerView> onToggle;
@@ -366,7 +387,8 @@ class _PageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<PlannerTokens>() ?? PlannerTokens.fromSeed(seedColor: PlannerTheme.defaultSeed);
+    final tokens = Theme.of(context).extension<PlannerTokens>() ??
+        PlannerTokens.fromSeed(seedColor: PlannerTheme.defaultSeed);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -376,7 +398,8 @@ class _PageHeader extends StatelessWidget {
             children: [
               Text('Plan dashboard', style: tokens.hero),
               const SizedBox(height: 4),
-              Text('Adaptable layouts for quick scanning and focused edits', style: Theme.of(context).textTheme.bodyMedium),
+              Text('Adaptable layouts for quick scanning and focused edits',
+                  style: Theme.of(context).textTheme.bodyMedium),
             ],
           ),
         ),
@@ -418,12 +441,14 @@ class _PlannerBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tokens = Theme.of(context).extension<PlannerTokens>() ?? PlannerTokens.fromSeed(seedColor: PlannerTheme.defaultSeed);
+    final tokens = Theme.of(context).extension<PlannerTokens>() ??
+        PlannerTokens.fromSeed(seedColor: PlannerTheme.defaultSeed);
     return CustomScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       slivers: [
         SliverPadding(
-          padding: EdgeInsets.fromLTRB(padding.left, padding.top, padding.right, 8),
+          padding:
+              EdgeInsets.fromLTRB(padding.left, padding.top, padding.right, 8),
           sliver: SliverToBoxAdapter(
             child: _PageHeader(
               view: PlannerView.board,
@@ -438,17 +463,21 @@ class _PlannerBoard extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.fromLTRB(padding.left, 8, padding.right, padding.bottom + 48),
+            padding: EdgeInsets.fromLTRB(
+                padding.left, 8, padding.right, padding.bottom + 48),
             child: LayoutBuilder(
               builder: (context, constraints) {
                 final width = constraints.maxWidth;
                 final targetColumns = (width / 280).floor().clamp(1, 3);
-                final columnWidth = (width - (tokens.gutter * (targetColumns - 1))) / targetColumns;
+                final columnWidth =
+                    (width - (tokens.gutter * (targetColumns - 1))) /
+                        targetColumns;
                 return Wrap(
                   spacing: tokens.gutter,
                   runSpacing: tokens.gutter,
                   children: Status.values.map((status) {
-                    final bucket = items.where((item) => item.status == status).toList();
+                    final bucket =
+                        items.where((item) => item.status == status).toList();
                     return ConstrainedBox(
                       constraints: BoxConstraints(
                         minWidth: columnWidth,
@@ -484,9 +513,14 @@ class _BoardLegend extends StatelessWidget {
       spacing: tokens.gutter,
       runSpacing: tokens.gutter,
       children: const [
-        Chip(avatar: Icon(Icons.drag_handle), label: Text('Long-press to drag')),
-        Chip(avatar: Icon(Icons.auto_awesome), label: Text('Drop to change status')),
-        Chip(avatar: Icon(Icons.swipe_left_alt), label: Text('Tap to edit details')),
+        Chip(
+            avatar: Icon(Icons.drag_handle), label: Text('Long-press to drag')),
+        Chip(
+            avatar: Icon(Icons.auto_awesome),
+            label: Text('Drop to change status')),
+        Chip(
+            avatar: Icon(Icons.swipe_left_alt),
+            label: Text('Tap to edit details')),
       ],
     );
   }
@@ -526,17 +560,20 @@ class _StatusColumn extends StatelessWidget {
                     CircleAvatar(
                       radius: 14,
                       backgroundColor: _statusColor(status, Theme.of(context)),
-                      child: Icon(_statusIcon(status), color: Theme.of(context).colorScheme.onPrimary, size: 16),
+                      child: Icon(_statusIcon(status),
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          size: 16),
                     ),
                     const SizedBox(width: 8),
                     Text(status.name, style: tokens.emphasis),
                     const Spacer(),
-                    if (isHighlighted) Icon(Icons.inbox_move, size: 18),
+                    if (isHighlighted) const Icon(Icons.inbox, size: 18),
                   ],
                 ),
                 const SizedBox(height: 12),
                 if (items.isEmpty)
-                  Text('Drop tasks here', style: Theme.of(context).textTheme.bodySmall)
+                  Text('Drop tasks here',
+                      style: Theme.of(context).textTheme.bodySmall)
                 else
                   ...items.map(
                     (item) => Padding(
@@ -635,9 +672,11 @@ class _PlannerDetailPanel extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.dashboard_customize, color: Theme.of(context).colorScheme.primary),
+              Icon(Icons.dashboard_customize,
+                  color: Theme.of(context).colorScheme.primary),
               const SizedBox(height: 12),
-              Text('Select an item to see details', style: tokens.emphasis, textAlign: TextAlign.center),
+              Text('Select an item to see details',
+                  style: tokens.emphasis, textAlign: TextAlign.center),
             ],
           ),
         ),
@@ -656,7 +695,8 @@ class _PlannerDetailPanel extends StatelessWidget {
             Row(
               children: [
                 Expanded(child: Text(item!.title, style: tokens.hero)),
-                FilledButton.tonal(onPressed: onEdit, child: const Text('Edit')),
+                FilledButton.tonal(
+                    onPressed: onEdit, child: const Text('Edit')),
                 const SizedBox(width: 8),
                 IconButton(
                   onPressed: onDelete,
@@ -666,7 +706,9 @@ class _PlannerDetailPanel extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            Text(item!.description.isEmpty ? 'No description provided.' : item!.description),
+            Text(item!.description.isEmpty
+                ? 'No description provided.'
+                : item!.description),
             const SizedBox(height: 12),
             Wrap(
               spacing: tokens.gutter,
@@ -688,8 +730,10 @@ class _PlannerDetailPanel extends StatelessWidget {
                 ),
                 if (overdue)
                   const Chip(
-                    avatar: Icon(Icons.warning_amber_rounded, color: Colors.white),
-                    label: Text('Overdue', style: TextStyle(color: Colors.white)),
+                    avatar:
+                        Icon(Icons.warning_amber_rounded, color: Colors.white),
+                    label:
+                        Text('Overdue', style: TextStyle(color: Colors.white)),
                     backgroundColor: Colors.redAccent,
                   ),
               ],
@@ -744,7 +788,11 @@ class _PlannerGridCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     padding: const EdgeInsets.all(8),
-                    child: Icon(overdue ? Icons.warning_amber_rounded : Icons.push_pin_outlined, color: priorityColor),
+                    child: Icon(
+                        overdue
+                            ? Icons.warning_amber_rounded
+                            : Icons.push_pin_outlined,
+                        color: priorityColor),
                   ),
                   const Spacer(),
                   if (showActions)
@@ -760,8 +808,10 @@ class _PlannerGridCard extends StatelessWidget {
                         }
                       },
                       itemBuilder: (context) => const [
-                        PopupMenuItem<String>(value: 'edit', child: Text('Edit')),
-                        PopupMenuItem<String>(value: 'delete', child: Text('Delete')),
+                        PopupMenuItem<String>(
+                            value: 'edit', child: Text('Edit')),
+                        PopupMenuItem<String>(
+                            value: 'delete', child: Text('Delete')),
                       ],
                     ),
                 ],
@@ -769,7 +819,12 @@ class _PlannerGridCard extends StatelessWidget {
               const SizedBox(height: 8),
               Text(item.title, style: tokens.emphasis),
               const SizedBox(height: 4),
-              Text(item.description.isEmpty ? 'No description yet' : item.description, maxLines: 2, overflow: TextOverflow.ellipsis),
+              Text(
+                  item.description.isEmpty
+                      ? 'No description yet'
+                      : item.description,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis),
               const Spacer(),
               Wrap(
                 spacing: 8,
@@ -822,7 +877,9 @@ class _PlannerListTile extends StatelessWidget {
     final overdue = item.isOverdue;
 
     return Card(
-      color: selected ? Theme.of(context).colorScheme.secondaryContainer : tokens.surface,
+      color: selected
+          ? Theme.of(context).colorScheme.secondaryContainer
+          : tokens.surface,
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor: priorityColor.withOpacity(0.15),
@@ -831,7 +888,10 @@ class _PlannerListTile extends StatelessWidget {
             color: overdue ? Colors.redAccent : priorityColor,
           ),
         ),
-        title: Text(item.title, style: TextStyle(fontWeight: FontWeight.w600, color: overdue ? Colors.red : null)),
+        title: Text(item.title,
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: overdue ? Colors.red : null)),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -855,11 +915,15 @@ class _PlannerListTile extends StatelessWidget {
                 ),
                 Chip(
                   label: Text('Status: ${item.status.name}'),
-                  backgroundColor: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.35),
+                  backgroundColor: Theme.of(context)
+                      .colorScheme
+                      .secondaryContainer
+                      .withOpacity(0.35),
                 ),
                 if (overdue)
                   const Chip(
-                    label: Text('Overdue', style: TextStyle(color: Colors.white)),
+                    label:
+                        Text('Overdue', style: TextStyle(color: Colors.white)),
                     backgroundColor: Colors.redAccent,
                   ),
               ],
@@ -944,4 +1008,3 @@ Color _priorityColor(Priority priority, BuildContext context) {
       return Colors.green;
   }
 }
-

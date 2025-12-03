@@ -33,7 +33,8 @@ class PlannerTokens extends ThemeExtension<PlannerTokens> {
     required Color seedColor,
     Brightness brightness = Brightness.light,
   }) {
-    final scheme = ColorScheme.fromSeed(seedColor: seedColor, brightness: brightness);
+    final scheme =
+        ColorScheme.fromSeed(seedColor: seedColor, brightness: brightness);
     return PlannerTokens(
       seed: seedColor,
       surface: scheme.surfaceContainerHighest,
@@ -83,10 +84,12 @@ class PlannerTokens extends ThemeExtension<PlannerTokens> {
     return PlannerTokens(
       seed: Color.lerp(seed, other.seed, t) ?? seed,
       surface: Color.lerp(surface, other.surface, t) ?? surface,
-      surfaceMuted: Color.lerp(surfaceMuted, other.surfaceMuted, t) ?? surfaceMuted,
+      surfaceMuted:
+          Color.lerp(surfaceMuted, other.surfaceMuted, t) ?? surfaceMuted,
       hero: TextStyle.lerp(hero, other.hero, t) ?? hero,
       emphasis: TextStyle.lerp(emphasis, other.emphasis, t) ?? emphasis,
-      surfaceRadius: BorderRadius.lerp(surfaceRadius, other.surfaceRadius, t) ?? surfaceRadius,
+      surfaceRadius: BorderRadius.lerp(surfaceRadius, other.surfaceRadius, t) ??
+          surfaceRadius,
       gutter: lerpDouble(gutter, other.gutter, t) ?? gutter,
     );
   }
@@ -106,12 +109,13 @@ class PlannerTheme {
       brightness: brightness,
       surfaceTint: seedColor,
     );
-    final tokens = PlannerTokens.fromSeed(seedColor: seedColor, brightness: brightness);
+    final tokens =
+        PlannerTokens.fromSeed(seedColor: seedColor, brightness: brightness);
     final baseTextTheme = brightness == Brightness.dark
         ? Typography.whiteMountainView
         : Typography.blackMountainView;
 
-    final cardTheme = CardTheme(
+    final CardThemeData cardTheme = CardThemeData(
       color: tokens.surface,
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: tokens.surfaceRadius),
@@ -156,7 +160,10 @@ class PlannerTheme {
 }
 
 class PlannerFlutterApp extends StatefulWidget {
-  const PlannerFlutterApp({super.key, required this.repository, this.seedColor = PlannerTheme.defaultSeed});
+  const PlannerFlutterApp(
+      {super.key,
+      required this.repository,
+      this.seedColor = PlannerTheme.defaultSeed});
 
   final PlannerRepository repository;
   final Color seedColor;
