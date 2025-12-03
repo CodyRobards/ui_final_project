@@ -70,7 +70,7 @@ class _PlannerHomePageState extends State<PlannerHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Planner'),
+        title: const Text("Cody's Fantastic Planner!"),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _openForm(context),
@@ -397,26 +397,32 @@ class _PageHeader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Your plan dashboard', style: tokens.hero),
+              Text("Cody's Fantastic Planner!", style: tokens.hero),
               const SizedBox(height: 4),
               Text('Manage your tasks and stay organized!',
                   style: Theme.of(context).textTheme.bodyMedium),
             ],
           ),
         ),
-        IconButton(
-          onPressed: onOpenFilters,
-          tooltip: 'Filter & sort',
-          icon: const Icon(Icons.filter_alt_outlined),
+        Expanded(
+          child: Center(
+            child: SegmentedButton<PlannerView>(
+              segments: const [
+                ButtonSegment(value: PlannerView.list, label: Text('List')),
+                ButtonSegment(value: PlannerView.board, label: Text('Board')),
+              ],
+              selected: {view},
+              onSelectionChanged: (selection) => onToggle(selection.first),
+            ),
+          ),
         ),
-        const SizedBox(width: 8),
-        SegmentedButton<PlannerView>(
-          segments: const [
-            ButtonSegment(value: PlannerView.list, label: Text('List')),
-            ButtonSegment(value: PlannerView.board, label: Text('Board')),
-          ],
-          selected: {view},
-          onSelectionChanged: (selection) => onToggle(selection.first),
+        SizedBox(
+          width: 48,
+          child: IconButton(
+            onPressed: onOpenFilters,
+            tooltip: 'Filter & sort',
+            icon: const Icon(Icons.filter_alt_outlined),
+          ),
         ),
       ],
     );
@@ -586,7 +592,7 @@ class _StatusColumn extends StatelessWidget {
                   ...items.map(
                     (item) => Padding(
                       padding: const EdgeInsets.only(bottom: 10),
-                      child: LongPressDraggable<PlannerItem>(
+                      child: Draggable<PlannerItem>(
                         data: item,
                         feedback: Material(
                           color: Colors.transparent,

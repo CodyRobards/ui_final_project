@@ -1,6 +1,6 @@
 {
-    "name": "planner_cli",
-    "short_name": "planner_cli",
+    "name": "fantastic_planner",
+    "short_name": "fantastic_planner",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
