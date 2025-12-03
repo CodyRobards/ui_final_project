@@ -111,7 +111,7 @@ class PlannerTheme {
         ? Typography.whiteMountainView
         : Typography.blackMountainView;
 
-    final cardTheme = CardThemeData(
+    final cardTheme = CardTheme(
       color: tokens.surface,
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: tokens.surfaceRadius),
