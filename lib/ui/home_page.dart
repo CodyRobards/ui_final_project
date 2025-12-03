@@ -337,11 +337,11 @@ class _PlannerListArea extends StatelessWidget {
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
-          SliverPadding(
-            padding: EdgeInsets.fromLTRB(
-                padding.left, padding.top, padding.right, 8),
-            sliver: SliverToBoxAdapter(
-              child: _PageHeader(
+        SliverPadding(
+          padding: EdgeInsets.fromLTRB(
+              padding.left, padding.top, padding.right, 8),
+          sliver: SliverToBoxAdapter(
+            child: _PageHeader(
                 view: view,
                 onToggle: onToggleView,
                 onOpenFilters: onOpenFilters,
@@ -513,15 +513,22 @@ class _BoardLegend extends StatelessWidget {
     return Wrap(
       spacing: tokens.gutter,
       runSpacing: tokens.gutter,
-      children: const [
+      children: [
         Chip(
-            avatar: Icon(Icons.drag_handle), label: Text('Long-press to drag')),
+          avatar: const Icon(Icons.drag_handle),
+          label: const Text('Long-press to drag'),
+          backgroundColor: tokens.surface,
+        ),
         Chip(
-            avatar: Icon(Icons.auto_awesome),
-            label: Text('Drop to change status')),
+          avatar: const Icon(Icons.auto_awesome),
+          label: const Text('Drop to change status'),
+          backgroundColor: tokens.surface,
+        ),
         Chip(
-            avatar: Icon(Icons.swipe_left_alt),
-            label: Text('Tap to edit details')),
+          avatar: const Icon(Icons.swipe_left_alt),
+          label: const Text('Tap to edit details'),
+          backgroundColor: tokens.surface,
+        ),
       ],
     );
   }
@@ -552,7 +559,7 @@ class _StatusColumn extends StatelessWidget {
         return Card(
           color: isHighlighted ? tokens.surfaceMuted : tokens.surface,
           child: Padding(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(tokens.gutter - 2),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -667,12 +674,12 @@ class _PlannerDetailPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (item == null) {
-      return Card(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.all(tokens.gutter + 8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
               Icon(Icons.dashboard_customize,
                   color: Theme.of(context).colorScheme.primary),
               const SizedBox(height: 12),
@@ -689,7 +696,7 @@ class _PlannerDetailPanel extends StatelessWidget {
     final priorityColor = _priorityColor(item!.priority, context);
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(tokens.gutter + 4),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -713,7 +720,7 @@ class _PlannerDetailPanel extends StatelessWidget {
             const SizedBox(height: 12),
             Wrap(
               spacing: tokens.gutter,
-              runSpacing: 8,
+              runSpacing: tokens.gutter / 2,
               children: [
                 Chip(
                   avatar: const Icon(Icons.schedule),
@@ -777,7 +784,7 @@ class _PlannerGridCard extends StatelessWidget {
       child: Card(
         color: isSelected ? scheme.secondaryContainer : tokens.surface,
         child: Padding(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.all(tokens.gutter - 2),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -830,8 +837,8 @@ class _PlannerGridCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis),
               const SizedBox(height: 12),
               Wrap(
-                spacing: 8,
-                runSpacing: 4,
+                spacing: tokens.gutter / 2,
+                runSpacing: tokens.gutter / 3,
                 children: [
                   Chip(
                     label: Text('Due ${formatter.format(item.dueDate)}'),
@@ -994,9 +1001,12 @@ class _FilterSummary extends StatelessWidget {
   }
 
   Widget _buildChip(String label) {
+    final tokens = Theme.of(context).extension<PlannerTokens>() ??
+        PlannerTokens.fromSeed(seedColor: PlannerTheme.defaultSeed);
     return Chip(
       avatar: const Icon(Icons.tune, size: 18),
       label: Text(label),
+      backgroundColor: tokens.surface,
     );
   }
 }
