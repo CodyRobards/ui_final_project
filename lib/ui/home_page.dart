@@ -781,6 +781,7 @@ class _PlannerGridCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     decoration: BoxDecoration(
@@ -794,7 +795,6 @@ class _PlannerGridCard extends StatelessWidget {
                             : Icons.push_pin_outlined,
                         color: priorityColor),
                   ),
-                  const Spacer(),
                   if (showActions)
                     PopupMenuButton<String>(
                       onSelected: (value) {
@@ -813,7 +813,9 @@ class _PlannerGridCard extends StatelessWidget {
                         PopupMenuItem<String>(
                             value: 'delete', child: Text('Delete')),
                       ],
-                    ),
+                    )
+                  else
+                    const SizedBox(width: 8),
                 ],
               ),
               const SizedBox(height: 8),
@@ -825,7 +827,7 @@ class _PlannerGridCard extends StatelessWidget {
                       : item.description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis),
-              const Spacer(),
+              const SizedBox(height: 12),
               Wrap(
                 spacing: 8,
                 runSpacing: 4,
