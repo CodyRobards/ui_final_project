@@ -32,6 +32,16 @@ flutter run -d macos   # or windows, linux, ios, android
 
 The UI uses the same models and repository as the CLI. Data is stored in a JSON file named `planner_data.json` inside the platform-specific application documents/support directory (mobile/desktop). On unsupported platforms, the app falls back to a local `data/` folder.
 
+### Styling & visual direction
+
+- The Flutter UI theme is centralized in `lib/ui/app.dart` via `PlannerTheme` and its `PlannerTokens` extension. Change the `seedColor` passed to `PlannerFlutterApp` (or `PlannerTheme.themed`) to instantly retint the entire experience, including cards, chips, and form fills.
+- `PlannerTokens` also exposes shared corner radii, gutters, and emphasis text styles so new widgets can pick up the same rounded surfaces and typography.
+
+### Adaptive & interactive UI
+
+- The home page now responds to device width: phones use a stacked list, tablets switch to a masonry-like grid, and desktops show a two-pane layout with a persistent detail inspector.
+- An "Ideas board" view lets you long-press and drag tasks between status columns to quickly reprioritize without opening the edit form.
+
 ## Usage overview
 
 After launching, you can:
