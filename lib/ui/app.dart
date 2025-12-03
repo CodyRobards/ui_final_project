@@ -176,8 +176,7 @@ class PlannerTheme {
           borderSide: BorderSide(color: colorScheme.outlineVariant),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: colorScheme.primary.withOpacity(0.35)),
+          borderSide: BorderSide(color: colorScheme.primary.withOpacity(0.35)),
           borderRadius: tokens.surfaceRadius,
         ),
         enabledBorder: OutlineInputBorder(
@@ -194,8 +193,6 @@ class PlannerTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: colorScheme.surfaceContainerHighest,
           foregroundColor: colorScheme.onSurface,
-          shadowColor:
-              colorScheme.shadow.withOpacity(brightness == Brightness.dark ? 0.4 : 0.2),
           elevation: 2,
           shape: RoundedRectangleBorder(borderRadius: tokens.surfaceRadius),
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
@@ -218,8 +215,6 @@ class PlannerTheme {
         highlightElevation: 6,
         backgroundColor: colorScheme.primaryContainer,
         foregroundColor: colorScheme.onPrimaryContainer,
-        shadowColor:
-            colorScheme.shadow.withOpacity(brightness == Brightness.dark ? 0.4 : 0.2),
       ),
       shadowColor: colorScheme.shadow.withOpacity(
         brightness == Brightness.dark ? 0.4 : 0.22,

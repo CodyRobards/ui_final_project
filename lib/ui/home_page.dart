@@ -337,11 +337,11 @@ class _PlannerListArea extends StatelessWidget {
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
-        SliverPadding(
-          padding: EdgeInsets.fromLTRB(
-              padding.left, padding.top, padding.right, 8),
-          sliver: SliverToBoxAdapter(
-            child: _PageHeader(
+          SliverPadding(
+            padding: EdgeInsets.fromLTRB(
+                padding.left, padding.top, padding.right, 8),
+            sliver: SliverToBoxAdapter(
+              child: _PageHeader(
                 view: view,
                 onToggle: onToggleView,
                 onOpenFilters: onOpenFilters,
@@ -397,9 +397,9 @@ class _PageHeader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Plan dashboard', style: tokens.hero),
+              Text('Your plan dashboard', style: tokens.hero),
               const SizedBox(height: 4),
-              Text('Adaptable layouts for quick scanning and focused edits',
+              Text('Manage your tasks and stay organized!',
                   style: Theme.of(context).textTheme.bodyMedium),
             ],
           ),
@@ -674,12 +674,12 @@ class _PlannerDetailPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (item == null) {
-    return Card(
-      child: Padding(
-        padding: EdgeInsets.all(tokens.gutter + 8),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+      return Card(
+        child: Padding(
+          padding: EdgeInsets.all(tokens.gutter + 8),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               Icon(Icons.dashboard_customize,
                   color: Theme.of(context).colorScheme.primary),
               const SizedBox(height: 12),
@@ -972,15 +972,18 @@ class _FilterSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     final chips = <Widget>[];
     if (controller.priorityFilter != null) {
-      chips.add(_buildChip('Priority: ${controller.priorityFilter!.name}'));
+      chips.add(
+          _buildChip(context, 'Priority: ${controller.priorityFilter!.name}'));
     }
     if (controller.statusFilter != null) {
-      chips.add(_buildChip('Status: ${controller.statusFilter!.name}'));
+      chips
+          .add(_buildChip(context, 'Status: ${controller.statusFilter!.name}'));
     }
     if (controller.overdueOnly) {
-      chips.add(_buildChip('Overdue only'));
+      chips.add(_buildChip(context, 'Overdue only'));
     }
-    chips.add(_buildChip('Sorted by ${_labelForSort(controller.sortOption)}'));
+    chips.add(_buildChip(
+        context, 'Sorted by ${_labelForSort(controller.sortOption)}'));
 
     return Wrap(
       spacing: 8,
@@ -1000,7 +1003,7 @@ class _FilterSummary extends StatelessWidget {
     }
   }
 
-  Widget _buildChip(String label) {
+  Widget _buildChip(BuildContext context, String label) {
     final tokens = Theme.of(context).extension<PlannerTokens>() ??
         PlannerTokens.fromSeed(seedColor: PlannerTheme.defaultSeed);
     return Chip(
