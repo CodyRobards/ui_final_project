@@ -111,6 +111,13 @@ class PlannerTheme {
         ? Typography.whiteMountainView
         : Typography.blackMountainView;
 
+    final cardTheme = CardTheme(
+      color: tokens.surface,
+      margin: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(borderRadius: tokens.surfaceRadius),
+      elevation: 0,
+    );
+
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
@@ -118,12 +125,7 @@ class PlannerTheme {
         headlineMedium: tokens.hero,
         titleMedium: tokens.emphasis,
       ),
-      cardTheme: CardTheme(
-        color: tokens.surface,
-        margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: tokens.surfaceRadius),
-        elevation: 0,
-      ),
+      cardTheme: cardTheme,
       chipTheme: ChipThemeData(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         side: BorderSide(color: colorScheme.outlineVariant),
