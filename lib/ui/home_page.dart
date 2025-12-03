@@ -531,7 +531,7 @@ class _StatusColumn extends StatelessWidget {
                     const SizedBox(width: 8),
                     Text(status.name, style: tokens.emphasis),
                     const Spacer(),
-                    if (isHighlighted) const Icon(Icons.move_to_inbox, size: 18),
+                    if (isHighlighted) const Icon(Icons.inbox_move, size: 18),
                   ],
                 ),
                 const SizedBox(height: 12),
