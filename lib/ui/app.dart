@@ -35,23 +35,32 @@ class PlannerTokens extends ThemeExtension<PlannerTokens> {
   }) {
     final scheme =
         ColorScheme.fromSeed(seedColor: seedColor, brightness: brightness);
+    final blendedSurface = Color.alphaBlend(
+      scheme.primary.withOpacity(brightness == Brightness.dark ? 0.08 : 0.06),
+      scheme.surface,
+    );
+    final blendedMuted = Color.alphaBlend(
+      scheme.primaryContainer
+          .withOpacity(brightness == Brightness.dark ? 0.08 : 0.04),
+      scheme.surfaceVariant,
+    );
     return PlannerTokens(
       seed: seedColor,
-      surface: scheme.surfaceContainerHighest,
-      surfaceMuted: scheme.surfaceContainerHigh,
+      surface: blendedSurface,
+      surfaceMuted: blendedMuted,
       hero: TextStyle(
         fontSize: 22,
-        fontWeight: FontWeight.w700,
-        letterSpacing: -0.25,
+        fontWeight: FontWeight.w600,
+        letterSpacing: -0.15,
         color: scheme.onSurface,
       ),
       emphasis: TextStyle(
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w500,
         color: scheme.onSurface,
-        letterSpacing: 0.05,
+        letterSpacing: 0.15,
       ),
-      surfaceRadius: BorderRadius.circular(18),
-      gutter: 14,
+      surfaceRadius: BorderRadius.circular(22),
+      gutter: 16,
     );
   }
 
@@ -98,7 +107,7 @@ class PlannerTokens extends ThemeExtension<PlannerTokens> {
 /// Centralizes theme creation so the visual direction can be tweaked from a
 /// single seed color.
 class PlannerTheme {
-  static const Color defaultSeed = Color(0xFF4C5BD4);
+  static const Color defaultSeed = Color(0xFFFFC7A6);
 
   static ThemeData themed({
     Color seedColor = defaultSeed,
@@ -119,7 +128,13 @@ class PlannerTheme {
       color: tokens.surface,
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: tokens.surfaceRadius),
-      elevation: 0,
+      elevation: 2,
+      shadowColor: colorScheme.shadow.withOpacity(
+        brightness == Brightness.dark ? 0.35 : 0.18,
+      ),
+      surfaceTintColor: Colors.white.withOpacity(
+        brightness == Brightness.dark ? 0.04 : 0.08,
+      ),
     );
 
     return ThemeData(
@@ -128,31 +143,86 @@ class PlannerTheme {
       textTheme: baseTextTheme.copyWith(
         headlineMedium: tokens.hero,
         titleMedium: tokens.emphasis,
+        bodyLarge: baseTextTheme.bodyLarge?.copyWith(
+          fontWeight: FontWeight.w400,
+          letterSpacing: 0.1,
+        ),
+        bodyMedium: baseTextTheme.bodyMedium?.copyWith(
+          fontWeight: FontWeight.w400,
+          letterSpacing: 0.1,
+        ),
+        labelLarge: baseTextTheme.labelLarge?.copyWith(
+          fontWeight: FontWeight.w500,
+          letterSpacing: 0.25,
+        ),
       ),
       cardTheme: cardTheme,
       chipTheme: ChipThemeData(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        side: BorderSide(color: colorScheme.outlineVariant),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 1,
+        shadowColor: colorScheme.shadow
+            .withOpacity(brightness == Brightness.dark ? 0.3 : 0.14),
+        side: BorderSide(color: colorScheme.outlineVariant.withOpacity(0.6)),
         labelStyle: TextStyle(color: colorScheme.onSurface),
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+        backgroundColor: tokens.surface,
+        selectedColor: tokens.surfaceMuted,
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: tokens.surfaceMuted,
-        border: OutlineInputBorder(borderRadius: tokens.surfaceRadius),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: colorScheme.primary),
+        border: OutlineInputBorder(
           borderRadius: tokens.surfaceRadius,
+          borderSide: BorderSide(color: colorScheme.outlineVariant),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide:
+              BorderSide(color: colorScheme.primary.withOpacity(0.35)),
+          borderRadius: tokens.surfaceRadius,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: colorScheme.outlineVariant),
+          borderRadius: tokens.surfaceRadius,
+        ),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        hintStyle: TextStyle(
+          color: colorScheme.onSurface.withOpacity(0.65),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
+          backgroundColor: colorScheme.surfaceContainerHighest,
+          foregroundColor: colorScheme.onSurface,
+          shadowColor:
+              colorScheme.shadow.withOpacity(brightness == Brightness.dark ? 0.4 : 0.2),
+          elevation: 2,
           shape: RoundedRectangleBorder(borderRadius: tokens.surfaceRadius),
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
         ),
       ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: colorScheme.onSurface,
+          side: BorderSide(color: colorScheme.outlineVariant.withOpacity(0.6)),
+          shape: RoundedRectangleBorder(borderRadius: tokens.surfaceRadius),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          backgroundColor: tokens.surface,
+        ),
+      ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         shape: RoundedRectangleBorder(borderRadius: tokens.surfaceRadius),
+        elevation: 4,
+        focusElevation: 5,
+        hoverElevation: 6,
+        highlightElevation: 6,
+        backgroundColor: colorScheme.primaryContainer,
+        foregroundColor: colorScheme.onPrimaryContainer,
+        shadowColor:
+            colorScheme.shadow.withOpacity(brightness == Brightness.dark ? 0.4 : 0.2),
+      ),
+      shadowColor: colorScheme.shadow.withOpacity(
+        brightness == Brightness.dark ? 0.4 : 0.22,
       ),
       extensions: <ThemeExtension<dynamic>>[tokens],
     );
