@@ -287,6 +287,7 @@ class _PlannerListArea extends StatelessWidget {
         PlannerTokens.fromSeed(seedColor: PlannerTheme.defaultSeed);
     final bool useGrid = columns > 1;
     final spacing = tokens.gutter;
+    final gridMainAxisExtent = columns >= 3 ? 340.0 : 320.0;
     final sliverItems = useGrid
         ? SliverGrid(
             delegate: SliverChildBuilderDelegate(
@@ -307,7 +308,7 @@ class _PlannerListArea extends StatelessWidget {
               crossAxisCount: columns,
               mainAxisSpacing: spacing,
               crossAxisSpacing: spacing,
-              childAspectRatio: columns >= 3 ? 1.35 : 1.05,
+              mainAxisExtent: gridMainAxisExtent,
             ),
           )
         : SliverList(
