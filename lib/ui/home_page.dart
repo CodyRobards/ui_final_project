@@ -332,10 +332,13 @@ class _PlannerListArea extends StatelessWidget {
             ),
           );
 
+    final scrollPhysics =
+        items.isEmpty ? const AlwaysScrollableScrollPhysics() : null;
+
     return RefreshIndicator(
       onRefresh: onRefresh,
       child: CustomScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
+        physics: scrollPhysics,
         slivers: [
           SliverPadding(
             padding: EdgeInsets.fromLTRB(
@@ -450,8 +453,9 @@ class _PlannerBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final tokens = Theme.of(context).extension<PlannerTokens>() ??
         PlannerTokens.fromSeed(seedColor: PlannerTheme.defaultSeed);
+    final physics = items.isEmpty ? const AlwaysScrollableScrollPhysics() : null;
     return CustomScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
+      physics: physics,
       slivers: [
         SliverPadding(
           padding:
